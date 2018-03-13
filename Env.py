@@ -6,7 +6,8 @@ class Env():
     def __init__(self):
         self.state = 0
         self.income = 0.0
-
+        self.holdingPrice = 0.0
+        self.sellshortPrice = 0.0
         #self.file = pd.read_csv(fileName)
 
     def performAction(self, action, openPrice):
@@ -15,14 +16,25 @@ class Env():
             # check current state
             assert self.state != 1
 
-            self.income -= openPrice
+            if self.state == -1:
+                self.income += self.sellshortPrice - openPrice
+                self.sellshortPrice = 0.0
+            elif self.state == 0:
+                self.holdingPrice = openPrice
+
             self.state += 1
         
         elif action == -1:
             assert self.state != -1
             
-            self.income += openPrice
+            if self.state == 1:
+                self.income += openPrice - self.holdingPrice
+                self.holdingPrice = 0.0
+            elif self.state == 0:
+                self.sellshortPrice = openPrice
+            
             self.state -= 1
+        
         elif action == 0:
             return
 
@@ -32,10 +44,10 @@ class Env():
         '''
         
         if self.state == 1:
-            self.income -= closePrice
+            self.income += closePrice - self.holdingPrice
             self.state = 0
         elif self.state == -1:
-            self.income += closePrice
+            self.income += self.sellshortPrice - closePrice
             self.state = 0
         
         return self.income

@@ -5,6 +5,7 @@ from sklearn.svm import SVR
 import csv
 import itertools
 from Env import Env
+from impl import Trader
 #import matplotlib.pyplot as plt
 
 def testDataResult(actionFile):
@@ -55,21 +56,22 @@ if __name__ == '__main__':
         TODO: implement trader model
     '''
 
-    #trader = Trader()
+    trader = Trader()
     #trader.train(training_data)
       
     with open(args.output, 'w') as output_file:
         for index, row in testData.iterrows():
             
             # We will perform your action as the open price in the next day.
-            #action = trader.predict_action(datum)
+            action = trader.predict_action(row)
             
             if index == (len(testData) - 1): break
             writer = csv.writer(output_file)
-            writer.writerow("0")
+            writer.writerow(action)
  
             # this is your option, you can leave it empty.
             # trader.re_training(i)
     
     # test the base case
-    testDataResult("dataset/base.csv")
+    #testDataResult("dataset/base.csv")
+    testDataResult(args.output)
