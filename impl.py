@@ -27,25 +27,25 @@ class Trader():
         if len(self.prevOpenPrices) > 4:
             self.prevOpenPrices.pop(0)
 
-            #
+            # record previous five days' close price avrage 
             if len(self.prevClosePrices) > 5:
                 self.prevClosePrices.pop(0)
                 self.fiveDaysAvg = sum(self.prevClosePrices) / 5
 
-            # if price going up, buy it
-            if (self.non_decreasing(self.prevOpenPrices) and self.fiveDaysAvg < data[3]):
-                if self.status != 1:
-                    action[0] = 1
-                    self.status += 1
+                # if price going up, buy it
+                if (self.non_decreasing(self.prevOpenPrices) and self.fiveDaysAvg < data[3]):
+                    if self.status != 1:
+                        action[0] = 1
+                        self.status += 1
 
-            # if price going down, sell it 
-            elif (self.non_increasing(self.prevOpenPrices) and self.fiveDaysAvg > data[3]):
-                if self.status != -1:
-                    action[0] = -1
-                    self.status -= 1
+                # if price going down, sell it 
+                elif (self.non_increasing(self.prevOpenPrices) and self.fiveDaysAvg > data[3]):
+                    if self.status != -1:
+                        action[0] = -1
+                        self.status -= 1
 
-            else:
-                action[0] = 0
+                else:
+                    action[0] = 0
 
         return action    
         

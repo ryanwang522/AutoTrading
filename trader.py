@@ -68,10 +68,7 @@ if __name__ == '__main__':
             if index == (len(testData) - 1): break
             writer = csv.writer(output_file)
             writer.writerow(action)
- 
-            # this is your option, you can leave it empty.
-            # trader.re_training(i)
     
     # test the base case
-    #testDataResult("dataset/base.csv")
-    testDataResult(args.output)
+    # testDataResult("dataset/base.csv")
+    # testDataResult(args.output)
