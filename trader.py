@@ -57,7 +57,7 @@ if __name__ == '__main__':
     '''
 
     trader = Trader()
-    #trader.train(training_data)
+    trader.train(args.training)
       
     with open(args.output, 'w') as output_file:
         for index, row in testData.iterrows():
