@@ -1,7 +1,6 @@
 # You can write code above the if-main block.
 import numpy as np
 import pandas as pd
-from sklearn.svm import SVR 
 import csv
 import itertools
 from Env import Env
